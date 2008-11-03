@@ -1,0 +1,33 @@
+#labels Phase-Deploy
+= How to install and deploy Maven DbDep Plugin =
+
+This page is dedicated to show how to install Maven Db Dependencies Plugin. 
+
+= Details =
+
+==Database creation==
+Download and execute with a SQL client setup_db.sql
+
+==Configure you own Maven project==
+
+Copy JAR and POM file in a directory and install Maven DbDep Plugin on you local Maven repository in this way:
+{{{
+mvn install:install-file -DgroupId=com.sourcesense -DartifactId=maven-dbdep-plugin -Dversion=0.1 -Dpackaging=jar -Dfile=maven-dbdep-plugin-0.1.jar -DpomFile=maven-dbdep-plugin-0.1.pom
+}}}
+
+Now you can add this snippet in your own project POM file:
+{{{
+      <plugin>
+        <groupId>com.sourcesense</groupId>
+        <artifactId>maven-dbdep-plugin</artifactId>
+        <version>0.1</version>
+        <executions>
+          <execution>
+            <id>dbdep</id>
+            <goals>
+              <goal>dbdep</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+}}}
