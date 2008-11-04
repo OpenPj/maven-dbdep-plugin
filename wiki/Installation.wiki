@@ -8,7 +8,7 @@ This page is dedicated to show how to install Maven Db Dependencies Plugin.
 ==Database creation==
 Download and execute with a SQL client setup_db.sql
 
-==Configure you own Maven project==
+==Configure your own Maven project==
 
 Copy JAR and POM file in a directory and install Maven DbDep Plugin on you local Maven repository in this way:
 {{{
