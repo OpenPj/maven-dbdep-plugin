@@ -10,5 +10,6 @@ environment VARCHAR(30),
 project VARCHAR(50) NOT NULL,
 name VARCHAR(60) NOT NULL,
 version VARCHAR(255) NOT NULL,
-PRIMARY KEY (id)
+PRIMARY KEY (id),
+UNIQUE (environment,project,name,version)
 )
