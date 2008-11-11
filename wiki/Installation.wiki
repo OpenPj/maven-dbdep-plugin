@@ -13,7 +13,7 @@ Copy JAR and POM file in a directory and install Maven Database Dependencies Plu
 mvn install:install-file -DgroupId=com.sourcesense -DartifactId=maven-dbdep-plugin -Dversion=0.2 -Dpackaging=jar -Dfile=maven-dbdep-plugin-0.2.jar -DpomFile=maven-dbdep-plugin-0.2.pom
 }}}
 
-Now you can add this snippet in your own project POM file, in this snippet you can see how to configure MySQL:
+Now you can add this snippet in your own project POM file, in this example snippet you can see how to configure your DBMS:
 {{{
       <plugin>
         <groupId>com.sourcesense</groupId>
