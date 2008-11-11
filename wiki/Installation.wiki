@@ -1,4 +1,4 @@
-#labels Phase-Deploy
+#labels Phase-Deploy,Featured
 = How to install and deploy Maven Database Dependencies Plugin =
 
 This page is dedicated to show how to install Maven Db Dependencies Plugin. 
