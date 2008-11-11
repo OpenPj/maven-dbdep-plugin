@@ -8,7 +8,7 @@ Download and execute with a SQL client setup_db.sql
 
 ==Configure your own Maven project==
 
-Copy JAR and POM file in a directory and install Maven Database Dependencies Plugin on you local Maven repository in this way (example from version 0.2):
+Copy JAR and POM file in a directory and install Maven Database Dependencies Plugin on you local Maven repository in this way (version 0.2):
 {{{
 mvn install:install-file -DgroupId=com.sourcesense -DartifactId=maven-dbdep-plugin -Dversion=0.2 -Dpackaging=jar -Dfile=maven-dbdep-plugin-0.2.jar -DpomFile=maven-dbdep-plugin-0.2.pom
 }}}
