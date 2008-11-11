@@ -45,10 +45,10 @@ public class DbDependenciesMojoBl implements IDbDependenciesMojoBl{
 	}
 	
 	public void write(MavenProject project, String projectName, String environment){
-		log.info("DbDep writing starting...: "+project.getName());
+		log.info("DbDep started for project: "+project.getName());
 		List dependencies = pomParser.getDependenciesFromPOM(project,projectName,environment);
 		dbDependenciesDao.insertDependencies(dependencies);
-		log.info("DbDep writing has finished correctly for this project: "+project.getName());
+		log.info("DbDep finished correctly for this project: "+project.getName());
 	}
 	
 	/**
@@ -64,7 +64,7 @@ public class DbDependenciesMojoBl implements IDbDependenciesMojoBl{
     		environment = profile.getId();
     	}
     	if("".equals(environment))
-    		log.warn("No environment has found in settings.xml Maven file");
+    		log.warn("No environment has found in your own settings.xml Maven file");
     	return environment;
     	
 	}
