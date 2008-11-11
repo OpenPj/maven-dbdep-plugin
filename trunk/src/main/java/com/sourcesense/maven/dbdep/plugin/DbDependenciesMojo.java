@@ -1,7 +1,7 @@
 package com.sourcesense.maven.dbdep.plugin;
 
 /*
- * Copyright 2008 Piergiorgio Lucidi 
+ * Copyright 2008 Sourcesense
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
  * You may obtain a copy of the License at 
@@ -24,7 +24,7 @@ import com.sourcesense.maven.dbdep.plugin.bl.IDbDependenciesMojoBl;
 
 /**
  * 
- * @author <a href="mailto:piergiorgiolucidi@gmail.com">Piergiorgio Lucidi </a>
+ * @author Piergiorgio Lucidi
  * 
  * @goal dbdep
  * 
