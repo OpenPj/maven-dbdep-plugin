@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+/*
+ * Copyright 2008 Sourcesense
+ * Licensed under the Apache License, Version 2.0 (the "License"); 
+ * you may not use this file except in compliance with the License. 
+ * You may obtain a copy of the License at 
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0 
+ * 
+ * Unless required by applicable law or agreed to in writing, software distributed under 
+ * the License is distributed on an 
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+ * See the License for the specific language governing permissions and limitations under the License. 
+ *
+ * Author: Piergiorgio Lucidi
+ */
+ -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="ds" />
+	</bean>
+	
+	<bean id="matchAllWithPropReq"
+		class="org.springframework.transaction.interceptor.MatchAlwaysTransactionAttributeSource">
+		<property name="transactionAttribute"
+			value="PROPAGATION_REQUIRED,-Exception" />
+	</bean>
+
+	<bean id="matchAllTxInterceptor"
+		class="org.springframework.transaction.interceptor.TransactionInterceptor">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributeSource"
+			ref="matchAllWithPropReq" />
+	</bean>
+	
+	<bean id="transactionProxyCreator"
+		class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<property name="interceptorNames">
+			<list>
+				<idref local="matchAllTxInterceptor" />
+			</list>
+		</property>
+		<property name="beanNames">
+			<list>
+				<idref local="dbDepMojoBl" />	
+			</list>
+		</property>
+	</bean>
+
+	<bean id="dbDepMojoBl" class="com.sourcesense.maven.dbdep.plugin.bl.DbDependenciesMojoBl">
+		<property name="dbDependenciesDao" ref="dbDependenciesDao"/>
+		<property name="pomParser" ref="pomParser" />
+	</bean>
+	
+	<bean id="pomParser" class="com.sourcesense.maven.dbdep.plugin.parser.POMParser"/>
+	
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+		<set>
+			<value>classpath:query.properties</value>
+		</set>
+		</property>
+		
+	</bean>
+	
+	<bean id="dbDependenciesDao" class="com.sourcesense.maven.dbdep.plugin.dao.DbDependenciesDao">
+		<property name="ds" ref="ds"/>
+		<property name="psInsert" value="${ps.insert}" />
+		<property name="psSelect" value="${ps.select}" />
+	</bean>
+	
+	<bean id="ds" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource" />
+	
+</beans>
