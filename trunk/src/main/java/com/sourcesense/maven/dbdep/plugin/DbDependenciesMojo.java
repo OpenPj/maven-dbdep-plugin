@@ -15,6 +15,8 @@ package com.sourcesense.maven.dbdep.plugin;
  */
 
 import java.util.List;
+
+import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
@@ -32,6 +34,8 @@ import com.sourcesense.maven.dbdep.plugin.bl.IDbDependenciesMojoBl;
  */
 public class DbDependenciesMojo extends AbstractMojo {
     
+	private static final String DATASOURCE_BEAN_NAME = "ds";
+	
     /**
      * POM
      * 
@@ -48,12 +52,45 @@ public class DbDependenciesMojo extends AbstractMojo {
      */
     private String name;
     
+    /**
+    * JDBC driver class name
+    * @parameter expression="${jdbc.driverClassName}"
+    * @required
+    */
+    private String jdbcDriverClassName;
+    
+	/**
+	 * JDBC datasource url
+	 * @parameter expression="${jdbc.url}"
+	 * @required
+	 */
+	private String jdbcUrl;
+     
+	/**
+	 * Username to access to this datasource
+	 * @parameter expression="${jdbc.username}"
+	 * @required
+	 */
+	private String jdbcUsername;
+      
+	/**
+	 * Password to access to this datasource
+	 * @parameter expression="${jdbc.password}"
+	 * @required
+	 */
+	private String jdbcPassword;
+    
     private static final String SPRING_CONTEXT = "applicationContext.xml";
 
     public void execute() throws MojoExecutionException {
         List activeProfiles = project.getActiveProfiles();
         ApplicationContext context = new ClassPathXmlApplicationContext(new String[] {SPRING_CONTEXT});
         IDbDependenciesMojoBl dbDepMojoBl = (IDbDependenciesMojoBl)context.getBean(IDbDependenciesMojoBl.BEAN_NAME);
+        BasicDataSource ds = (BasicDataSource)context.getBean(DATASOURCE_BEAN_NAME);
+        ds.setDriverClassName(jdbcDriverClassName);
+        ds.setUrl(jdbcUrl);
+        ds.setUsername(jdbcUsername);
+        ds.setPassword(jdbcPassword);
         String environment = dbDepMojoBl.getEnvironment(activeProfiles);
         dbDepMojoBl.write(project,name,environment);
     }
