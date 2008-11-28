@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 assembly-1.1.0-SNAPSHOT.xsd ">
+  <id>with-dependencies</id>
+  <formats>
+    <format>zip</format>
+  </formats>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <dependencySets>
+    <dependencySet>
+      <outputDirectory>lib</outputDirectory>
+      <scope>runtime</scope>
+    </dependencySet>
+  </dependencySets>
+  <fileSets>
+   <fileSet>
+      <includes>
+        <include>readme*</include>
+        <include>license*</include>
+        <include>notice*</include>
+      </includes>
+      <useDefaultExcludes>true</useDefaultExcludes>
+    </fileSet>
+    <fileSet>
+    	<directory>target</directory>
+    	<includes>
+    		<include>${pom.artifactId}-${pom.version}.jar</include>
+    	</includes>
+    	<outputDirectory>dist</outputDirectory>
+    </fileSet>
+  </fileSets>
+  <files>
+  	<file>
+  		<source>pom.xml</source>
+  		<destName>${pom.artifactId}-${pom.version}.pom</destName>
+  		<outputDirectory>dist</outputDirectory>
+  	</file>
+  	<file>
+  		<source>target/${pom.artifactId}-${pom.version}-project.zip</source>
+  	</file>
+  </files>
+</assembly>

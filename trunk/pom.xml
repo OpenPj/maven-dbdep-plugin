@@ -108,4 +108,60 @@
       <version>1.2.2</version>
     </dependency>
   </dependencies>
+  <build>
+  	<plugins>
+  		<plugin>
+        	<artifactId>maven-assembly-plugin</artifactId>
+       		<configuration>
+         		<descriptors>
+         			<descriptor>src/main/assembly/project.xml</descriptor>
+           			<descriptor>src/main/assembly/with-dependencies.xml</descriptor>
+         		</descriptors>
+				<archive>    
+		            <manifest>
+		              <mainClass>com.sourcesense.maven.dbdep.plugin.DbDependenciesMojo</mainClass>
+		              <packageName>com.sourcesense.maven</packageName>
+		              <addClasspath>true</addClasspath>
+		              <addExtensions>true</addExtensions>
+		            </manifest>
+		            <manifestEntries>
+		              <mode>development</mode>
+		              <url>${pom.url}</url>
+		            </manifestEntries>
+				</archive>
+			</configuration>
+		</plugin>
+      <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>2.2</version>
+         <configuration>
+          <archive>    
+            <manifest>
+              <mainClass>com.sourcesense.maven.dbdep.plugin.DbDependenciesMojo</mainClass>
+              <packageName>com.sourcesense.maven</packageName>
+              <addClasspath>true</addClasspath>
+              <addExtensions>true</addExtensions>
+            </manifest>
+            <manifestEntries>
+              <mode>development</mode>
+              <url>${pom.url}</url>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.5</version>
+        <executions>
+	        <execution>
+	        	<id>javadoc</id>
+	        	<goals>
+	        		<goal>javadoc</goal>
+	        	</goals>
+	        </execution>
+        </executions>
+        
+      </plugin>
+    </plugins>
+  </build>
 </project>
