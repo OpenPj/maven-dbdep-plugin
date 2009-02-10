@@ -154,6 +154,7 @@
         <version>2.5</version>
         <executions>
 	        <execution>
+	        	<phase>site</phase>
 	        	<id>javadoc</id>
 	        	<goals>
 	        		<goal>javadoc</goal>
